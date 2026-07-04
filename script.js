@@ -1,11 +1,10 @@
 let firstOperand = "";      
-let secondOperand = "";    
-let currentOperator = null;
+let secondOperand = "";     
+let currentOperator = null; 
 
 function updateDisplay(value) {
     document.getElementById('display-value').innerText = value || "0";
 }
-
 
 function appendNumber(number) {
     if (currentOperator === null) {
@@ -18,7 +17,7 @@ function appendNumber(number) {
 }
 
 function appendOperator(operator) {
-    if (firstOperand === "") return;
+    if (firstOperand === "") return; 
     currentOperator = operator;
 }
 
@@ -44,7 +43,7 @@ function calculateResult() {
         finalResult = num1 * num2;
     } else if (currentOperator === '/') {
         if (num2 === 0) {
-            updateDisplay("Error");
+            updateDisplay("Error"); 
             return;
         }
         finalResult = num1 / num2;
@@ -55,3 +54,17 @@ function calculateResult() {
     secondOperand = "";
     currentOperator = null;
 }
+
+document.addEventListener('keydown', function(event) {
+    const key = event.key;
+    if (key >= '0' && key <= '9') {
+        appendNumber(key);
+    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        appendOperator(key);
+    } else if (key === 'Enter' || key === '=') {
+        event.preventDefault(); 
+        calculateResult();
+    } else if (key === 'Escape' || key.toLowerCase() === 'c') {
+        clearDisplay();
+    }
+});
